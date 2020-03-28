@@ -1,14 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect, useRef } from "react";
 import * as d3 from "d3";
 import { legendColor } from "d3-svg-legend";
 import * as topojson from "topojson";
 
 function ChoroplethMap(props) {
-  const [rendered, setRendered] = useState(false);
+  //const [rendered, setRendered] = useState(false);
   const [states, setStates] = useState(props.states);
   const [state, setState] = useState({});
   const [statistic, setStatistic] = useState({});
-  const [index, setIndex] = useState(1);
+  //const [index, setIndex] = useState(1);
   const choroplethMap = useRef(null);
 
   useEffect(() => {
@@ -46,8 +47,9 @@ function ChoroplethMap(props) {
     states.map((state, index) => {
       if (state.state.toLowerCase() === name.toLowerCase()) {
         setState(state);
-        setIndex(index);
+        // setIndex(index);
       }
+      return null;
     });
   };
 
@@ -111,6 +113,7 @@ function ChoroplethMap(props) {
     function ready([india]) {
       states.map((state, index) => {
         unemployment.set(state.state.toLowerCase(), state.confirmed);
+        return null;
       });
 
       svg
@@ -123,7 +126,7 @@ function ChoroplethMap(props) {
         .attr("fill", function(d) {
           const n = unemployment.get(d.properties.ST_NM.toLowerCase());
           const color =
-            n == 0
+            n === +0
               ? "#ffffff"
               : d3.interpolateReds(
                   (maxInterpolation * n) / statistic.maxConfirmed
@@ -143,7 +146,7 @@ function ChoroplethMap(props) {
           const n = unemployment.get(d.properties.ST_NM.toLowerCase());
           const target = d3.event.target;
           const color =
-            n == 0
+            n === 0
               ? "#ffffff"
               : d3.interpolateReds(
                   (maxInterpolation * n) / statistic.maxConfirmed
