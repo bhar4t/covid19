@@ -30,6 +30,11 @@ export default function Home({
       <div style={styles.container} className="fadeInUp">
         {isLoading ? (
           <Loader />
+        ) : !isLoading && errorMessage !== "" ? (
+          <span>
+            Unable to fetch data, Please try again later <br />
+            {errorMessage}
+          </span>
         ) : (
           <>
             <HeaderBox today={today} total={total} />
