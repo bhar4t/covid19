@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../layouts/Layout";
-import HeaderBox from "./HeaderBox";
-import Tabs from "./Tabs";
+import TreeMenu from "react-simple-tree-menu";
+import "../../node_modules/react-simple-tree-menu/dist/main.css";
 import Loader from "./Loader";
 
 const styles = {
@@ -11,30 +11,24 @@ const styles = {
     marginTop: 46,
     height: "calc(100vh - (56px + 46px))",
     width: "100vw",
-    alignItems: "center",
+    alignItem: "center",
+    overflow: "scroll",
     animationDelay: "1.2s"
   }
 };
 
-export default function Home({
-  cases,
-  today,
-  states,
-  total,
-  tested,
-  isLoading,
-  errorMessage
-}) {
+export default function City({ states, isLoading, errorMessage }) {
   return (
-    <Layout selectedNav={2}>
+    <Layout selectedNav={3}>
       <div style={styles.container} className="fadeInUp">
         {isLoading ? (
           <Loader />
+        ) : errorMessage !== "" ? (
+          errorMessage
+        ) : states !== null ? (
+          <TreeMenu hasSearch={false} data={states} />
         ) : (
-          <>
-            <HeaderBox today={today} total={total} />
-            <Tabs states={states} cases={cases} />
-          </>
+          "Data not found"
         )}
       </div>
     </Layout>

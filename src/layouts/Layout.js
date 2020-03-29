@@ -52,8 +52,8 @@ const styles = {
 function App(props) {
   const navigations = [
     { icon: "Map", title: "Map", route: "/map" },
-    { icon: "Grid", title: "Home", route: "/" },
-    { icon: "List", title: "States", route: "/states" }
+    { icon: "Home", title: "Home", route: "/" },
+    { icon: "List", title: "City", route: "/city" }
   ];
   return (
     <div style={styles.container}>
@@ -70,13 +70,13 @@ function App(props) {
               <Tag
                 style={{ padding: 10 }}
                 color={props.selectedNav === 1 + i ? "black" : "#009999"}
-                size={28}
+                size={props.selectedNav === 1 + i ? 32 : 28}
                 onClick={e => {
                   e.preventDefault();
                   props.history.push(nav.route);
                 }}
               />
-              {nav.title}
+              {props.selectedNav === 1 + i ? "" : nav.title}
             </span>
           );
         })}

@@ -1,24 +1,47 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import Container1 from "./containers/Container1";
-import Container2 from "./containers/Container2";
-import Test from "./containers/Test";
+
+import "./loader.css";
 import "./App.scss";
-import Map from "./containers/Map";
+
+const styles = {
+  container: {
+    display: "flex",
+    height: "100vh",
+    width: "100vw",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+};
+
+const Home = lazy(() => import("./containers/Home"));
+const City = lazy(() => import("./containers/City"));
+const Map = lazy(() => import("./containers/Map"));
 
 function App() {
+  // if (window.matchMedia("(display-mode: standalone)").matches) {
+  //   alert("standalone");
+  // } else {
+  //   alert("browser");
+  // }
   return (
     <Router>
-      <Switch>
-        <Route exact path="/" render={props => <Container1 {...props} />} />
-        <Route
-          exact
-          path="/states"
-          render={props => <Container2 {...props} />}
-        />
-        <Route exact path="/map" render={props => <Map {...props} />} />
-        <Route exact path="/test" render={props => <Test {...props} />} />
-      </Switch>
+      <Suspense
+        fallback={
+          <div style={styles.container}>
+            <div class="lds-ripple">
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+        }
+      >
+        <Switch>
+          <Route exact path="/" render={props => <Home {...props} />} />
+          <Route exact path="/city" render={props => <City {...props} />} />
+          <Route exact path="/map" render={props => <Map {...props} />} />
+        </Switch>
+      </Suspense>
     </Router>
   );
 }

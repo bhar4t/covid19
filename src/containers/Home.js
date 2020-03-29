@@ -4,6 +4,7 @@ import Home from "../components/Home";
 
 function useFetchData() {
   const [cases, setCases] = useState([]);
+  const [total, setTotal] = useState({});
   const [today, setToday] = useState([]);
   const [states, setStates] = useState([]);
   const [tested, setTested] = useState([]);
@@ -21,6 +22,7 @@ function useFetchData() {
         setCases(data.cases_time_series);
         setToday(data.key_values);
         setStates(data.statewise);
+        setTotal(data.statewise[0]);
         setTested(data.tested);
         setErrorMessage("");
         setLoader(false);
@@ -30,6 +32,7 @@ function useFetchData() {
         setToday([]);
         setStates([]);
         setTested([]);
+        setTotal({});
         setErrorMessage(errorMessage);
         setLoader(false);
       });
@@ -40,16 +43,17 @@ function useFetchData() {
       cases,
       today,
       states,
-      tested
+      tested,
+      total
     },
     loader,
     errorMessage
   };
 }
 
-function Container1() {
+function HomeContainer() {
   const { data, loader, errorMessage } = useFetchData();
   return <Home {...data} isLoading={loader} errorMessage={errorMessage} />;
 }
 
-export default Container1;
+export default HomeContainer;

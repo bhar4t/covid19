@@ -11,7 +11,7 @@ const styles = {
     scrollBehavior: "smooth"
   },
   th: {
-    whiteSpace: "nowrap",
+    textAlign: "center",
     textTransform: "none"
   },
   td: { textAlign: "center" },
@@ -25,7 +25,7 @@ export default ({ states, cases }) => (
       <Tab>Daily records</Tab>
     </TabList>
     <TabPanel>
-      <table>
+      <table cellSpacing="10" cellPadding="10">
         <tr>
           <td style={styles.th}>State</td>
           <td style={styles.th}>Confimed</td>
@@ -35,9 +35,11 @@ export default ({ states, cases }) => (
         </tr>
         {states &&
           states.length > 0 &&
-          states.map(e => {
+          states.map((e, i) => {
             return (
-              <tr>
+              <tr
+                style={{ backgroundColor: i % 2 === 0 ? "white" : "#f5fffd" }}
+              >
                 <td style={styles.tdFirst}>{e.state}</td>
                 <td style={styles.td}>{e.confirmed}</td>
                 <td style={styles.td}>{e.active}</td>
@@ -49,7 +51,7 @@ export default ({ states, cases }) => (
       </table>
     </TabPanel>
     <TabPanel>
-      <table cellPadding="6">
+      <table cellSpacing="10" cellPadding="10">
         <tr>
           <td style={styles.th}>Date</td>
           <td style={styles.th}>Confimed</td>
@@ -61,9 +63,11 @@ export default ({ states, cases }) => (
         </tr>
         {cases &&
           cases.length > 0 &&
-          cases.map(e => {
+          cases.map((e, i) => {
             return (
-              <tr>
+              <tr
+                style={{ backgroundColor: i % 2 === 0 ? "white" : "#f5fffd" }}
+              >
                 <td style={styles.tdFirst}>{e.date}</td>
                 <td style={styles.td}>{e.dailyconfirmed}</td>
                 <td style={styles.td}>{e.dailyrecovered}</td>
