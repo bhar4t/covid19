@@ -1,4 +1,6 @@
 import React from "react";
+import Modal from "react-modal";
+import * as Icon from "react-feather";
 import Layout from "../layouts/Layout";
 import HeaderBox from "./HeaderBox";
 import Tabs from "./Tabs";
@@ -13,6 +15,25 @@ const styles = {
     width: "100vw",
     alignItems: "center",
     animationDelay: "1.2s"
+  },
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)"
+  }
+};
+
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)"
   }
 };
 
@@ -25,6 +46,28 @@ export default function Home({
   isLoading,
   errorMessage
 }) {
+  const [modalIsOpen, setIsOpen] = React.useState(false);
+  function closeModal() {
+    setIsOpen(false);
+    localStorage.setItem("time", new Date().toString());
+  }
+
+  setTimeout(() => {
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      // Thank You!
+    } else {
+      const dateString = localStorage.getItem("time", new Date().toString());
+      if (dateString) {
+        const date = new Date(dateString);
+        if ((new Date() - date) / 1000 / 60 / 60 > 4) {
+          setIsOpen(true);
+        }
+      } else {
+        setIsOpen(true);
+      }
+    }
+  }, 4000);
+
   return (
     <Layout selectedNav={2}>
       <div style={styles.container} className="fadeInUp">
@@ -39,6 +82,44 @@ export default function Home({
           <>
             <HeaderBox today={today} total={total} />
             <Tabs states={states} cases={cases} />
+            <Modal
+              isOpen={modalIsOpen}
+              onRequestClose={closeModal}
+              style={customStyles}
+              contentLabel="Install"
+            >
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  padding: "12px"
+                }}
+              >
+                <span style={{ fontSize: "3vh" }}>Install Covid19 - India</span>
+                <Icon.EyeOff onClick={closeModal} />
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  padding: 10,
+                  width: "75vw"
+                }}
+              >
+                <span style={{ display: "flex", alignItems: "center" }}>
+                  <span>1. Go to </span>
+                  <Icon.MoreVertical size="20" />
+                  <p>{`then  `}</p>
+                  <p style={{ fontWeight: "bold" }}> 'Add to Home Screen'</p>
+                </span>
+                <span>OR</span>
+                <br />
+                <span>
+                  2. Click on 'Add to Home Sceen' when open this app in browser.
+                </span>
+              </div>
+            </Modal>
           </>
         )}
       </div>

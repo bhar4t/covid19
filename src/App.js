@@ -19,11 +19,6 @@ const City = lazy(() => import("./containers/City"));
 const Map = lazy(() => import("./containers/Map"));
 
 function App() {
-  // if (window.matchMedia("(display-mode: standalone)").matches) {
-  //   alert("standalone");
-  // } else {
-  //   alert("browser");
-  // }
   return (
     <Router>
       <Suspense

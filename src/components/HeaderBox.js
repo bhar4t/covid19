@@ -52,7 +52,6 @@ const styles = {
 };
 
 export default function HeaderBox({ today, total }) {
-  console.log(total);
   return (
     <div style={styles.container}>
       <div style={styles.title}>Today</div>
