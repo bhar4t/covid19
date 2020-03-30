@@ -46,7 +46,6 @@ function App() {
             path="/privacy-policy"
             render={props => <PrivacyPolicy {...props} />}
           />
-          <Redirect from="/*" to="/" />
         </Switch>
       </Suspense>
     </Router>
