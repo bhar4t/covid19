@@ -51,6 +51,32 @@
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <!-- MEDIA Card (FB, Twitter) -->
+    <!--  Essential META Tags -->
+    <meta
+      property="og:title"
+      content="Covid19 - India Corona virus patients statistics"
+    />
+    <meta
+      property="og:description"
+      content="This app will inform user live updates on Corona virus patients for all over the India. App is based on data comes from open-source api https://api.covid19india.org/."
+    />
+    <meta
+      property="og:image"
+      content="http://corona-in.web.app/corona-in.png"
+    />
+    <meta property="og:url" content="http://corona-in.web.app/index.htm" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!--  Non-Essential, But Recommended -->
+    <meta property="og:site_name" content="Covid19 - India Statistics" />
+    <meta name="twitter:image:alt" content="Covid19 - India Statistics" />
+
+    <!--  Non-Essential, But Required for Analytics -->
+    <meta property="fb:app_id" content="245146429981956" />
+    <meta name="twitter:site" content="@bhar4t" />
+
     <title>Covid19 - India</title>
   </head>
   <body>
@@ -83,5 +109,31 @@
     <script src="/__/firebase/7.13.1/firebase-app.js"></script>
     <script src="/__/firebase/7.13.1/firebase-analytics.js"></script>
     <script src="/__/firebase/init.js"></script>
+
+    <!-- Facebook Analytics -->
+    <script>
+      window.fbAsyncInit = function() {
+        FB.init({
+          appId: "245146429981956",
+          cookie: true,
+          xfbml: true,
+          version: "v6.0"
+        });
+
+        FB.AppEvents.logPageView();
+      };
+
+      (function(d, s, id) {
+        var js,
+          fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {
+          return;
+        }
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+      })(document, "script", "facebook-jssdk");
+    </script>
   </body>
 </html>
