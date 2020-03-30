@@ -9,7 +9,6 @@ function useFetchData() {
   useEffect(() => {
     Axios.get("https://api.covid19india.org/state_district_wise.json")
       .then(data => {
-        console.log(data);
         if (data.status === 200) return data.data;
         else {
           throw new Error("Unable to fetch data.");

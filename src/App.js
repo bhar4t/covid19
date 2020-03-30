@@ -1,5 +1,10 @@
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect
+} from "react-router-dom";
 import PrivacyPolicy from "./containers/PrivacyPolicy";
 
 import "./loader.css";
@@ -41,6 +46,7 @@ function App() {
             path="/privacy-policy"
             render={props => <PrivacyPolicy {...props} />}
           />
+          <Redirect from="/*" to="/" />
         </Switch>
       </Suspense>
     </Router>
