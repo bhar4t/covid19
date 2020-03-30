@@ -12,7 +12,8 @@ const styles = {
     alignItems: "center",
     background:
       "linear-gradient(135deg, rgb(249, 244, 244) 23%, rgb(255, 247, 255) 62%)",
-    borderRadius: 24
+    borderRadius: 24,
+    height: "28vh"
   },
   update: {
     width: "26%",
