@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import PrivacyPolicy from "./containers/PrivacyPolicy";
 
 import "./loader.css";
 import "./App.scss";
@@ -35,6 +36,11 @@ function App() {
           <Route exact path="/" render={props => <Home {...props} />} />
           <Route exact path="/city" render={props => <City {...props} />} />
           <Route exact path="/map" render={props => <Map {...props} />} />
+          <Route
+            exact
+            path="/privacy-policy"
+            render={props => <PrivacyPolicy {...props} />}
+          />
         </Switch>
       </Suspense>
     </Router>
