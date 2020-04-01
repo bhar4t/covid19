@@ -14,7 +14,8 @@ const styles = {
     height: "calc(100vh - (56px + 46px))",
     width: "100vw",
     alignItems: "center",
-    animationDelay: "1.2s"
+    animationDelay: "1.2s",
+    overflow: "hidden"
   },
   content: {
     top: "50%",
@@ -23,6 +24,23 @@ const styles = {
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)"
+  },
+  modalContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "12px"
+  },
+  modalContent: {
+    display: "flex",
+    flexDirection: "column",
+    padding: 10,
+    width: "75vw"
+  },
+  colors: {
+    case: "#03a9f4",
+    recover: "#53b501",
+    death: "#ff9100"
   }
 };
 
@@ -80,49 +98,38 @@ export default function Home({
           </span>
         ) : (
           <>
-            <HeaderBox today={today} total={total} />
-            <Tabs states={states} cases={cases} />
-            <Modal
-              isOpen={modalIsOpen}
-              onRequestClose={closeModal}
-              style={customStyles}
-              contentLabel="Install"
-            >
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                  padding: "12px"
-                }}
-              >
-                <span style={{ fontSize: "3vh" }}>Install Covid19 - India</span>
-                <Icon.EyeOff onClick={closeModal} />
-              </div>
-              <div
-                style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  padding: 10,
-                  width: "75vw"
-                }}
-              >
-                <span style={{ display: "flex", alignItems: "center" }}>
-                  <span>1. Go to </span>
-                  <Icon.MoreVertical size="20" />
-                  <p>{`then  `}</p>
-                  <p style={{ fontWeight: "bold" }}> 'Add to Home Screen'</p>
-                </span>
-                <span>OR</span>
-                <br />
-                <span>
-                  2. Click on 'Add to Home Sceen' when open this app in browser.
-                </span>
-              </div>
-            </Modal>
+            <HeaderBox today={today} total={total} colors={styles.colors} />
+            <br />
+            <Tabs states={states} cases={cases} colors={styles.colors} />
           </>
         )}
       </div>
+      {!isLoading && errorMessage === "" && (
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          style={customStyles}
+          contentLabel="Install"
+        >
+          <div style={styles.modalContainer}>
+            <span style={{ fontSize: "3vh" }}>Instant Installation</span>
+            <Icon.EyeOff onClick={closeModal} />
+          </div>
+          <div style={styles.modalContent}>
+            <span style={{ display: "flex", alignItems: "center" }}>
+              <span>1. Go to </span>
+              <Icon.MoreVertical size="20" />
+              <p>{`then  `}</p>
+              <p style={{ fontWeight: "bold" }}> 'Add to Home Screen'</p>
+            </span>
+            <span>OR</span>
+            <br />
+            <span>
+              2. Click on 'Add to Home Sceen' when open this app in browser.
+            </span>
+          </div>
+        </Modal>
+      )}
     </Layout>
   );
 }

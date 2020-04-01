@@ -6,14 +6,12 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     width: "90vw",
-    backgroundColor: "#fff7ff",
     padding: "10px 0px",
     justifyContent: "space-around",
     alignItems: "center",
-    background:
-      "linear-gradient(135deg, rgb(249, 244, 244) 23%, rgb(255, 247, 255) 62%)",
+    backgroundColor: "whitesmoke",
     borderRadius: 24,
-    height: "28vh"
+    height: "auto"
   },
   update: {
     width: "26%",
@@ -49,10 +47,14 @@ const styles = {
     textAlign: "center",
     borderRadius: 25,
     padding: 4
+  },
+  statusLabel: {
+    color: "black",
+    opacity: "50%"
   }
 };
 
-export default function HeaderBox({ today, total }) {
+export default function HeaderBox({ today, total, colors }) {
   return (
     <div style={styles.container}>
       <div style={styles.title}>Today</div>
@@ -60,11 +62,10 @@ export default function HeaderBox({ today, total }) {
         <div
           style={{
             ...styles.update,
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,1) 12%, rgba(222,244,246,1) 95%)"
+            color: colors.case
           }}
         >
-          <div>Cases</div>
+          <div style={styles.statusLabel}>Cases</div>
           <CountUp
             end={today && today.length > 0 ? today[0].confirmeddelta : 0}
             duration={2.75}
@@ -73,11 +74,10 @@ export default function HeaderBox({ today, total }) {
         <div
           style={{
             ...styles.update,
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,1) 12%, rgba(205,255,198,1) 95%)"
+            color: colors.recover
           }}
         >
-          <div>Recovered</div>
+          <div style={styles.statusLabel}>Recovered</div>
           <CountUp
             end={today && today.length > 0 ? today[0].recovereddelta : 0}
             duration={2.75}
@@ -86,11 +86,10 @@ export default function HeaderBox({ today, total }) {
         <div
           style={{
             ...styles.update,
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,1) 12%, rgba(250,210,185,1) 95%)"
+            color: colors.death
           }}
         >
-          <div>Deaths</div>
+          <div style={styles.statusLabel}>Deaths</div>
           <CountUp
             end={today && today.length > 0 ? today[0].deceaseddelta : 0}
             duration={2.75}
@@ -102,31 +101,28 @@ export default function HeaderBox({ today, total }) {
         <div
           style={{
             ...styles.update,
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,1) 12%, rgba(222,244,246,1) 95%)"
+            color: colors.case
           }}
         >
-          <div>Cases</div>
+          <div style={styles.statusLabel}>Cases</div>
           <CountUp end={total ? total.confirmed : 0} duration={2.75} />
         </div>
         <div
           style={{
             ...styles.update,
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,1) 12%, rgba(205,255,198,1) 95%)"
+            color: colors.recover
           }}
         >
-          <div>Recovered</div>
+          <div style={styles.statusLabel}>Recovered</div>
           <CountUp end={total ? total.recovered : 0} duration={2.75} />
         </div>
         <div
           style={{
             ...styles.update,
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,1) 12%, rgba(250,210,185,1) 95%)"
+            color: colors.death
           }}
         >
-          <div>Deaths</div>
+          <div style={styles.statusLabel}>Deaths</div>
           <CountUp end={total ? total.deaths : 0} duration={2.75} />
         </div>
       </div>
@@ -136,8 +132,16 @@ export default function HeaderBox({ today, total }) {
           ...styles.updatedAt
         }}
       >
-        <div style={{ opacity: "40%" }}>Last updated</div>
-        <div>
+        <div
+          style={{
+            ...styles.statusLabel,
+            display: "flex",
+            whiteSpace: "nowrap"
+          }}
+        >
+          Last updated
+        </div>
+        <div style={styles.statusLabel}>
           {today && today.length > 0
             ? today[0].lastupdatedtime
             : "Date Missing"}

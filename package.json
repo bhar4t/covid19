@@ -22,7 +22,7 @@
     "topojson": "^3.0.2"
   },
   "scripts": {
-    "start": "react-scripts start css-watch",
+    "start": "PORT=3002 react-scripts start css-watch",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

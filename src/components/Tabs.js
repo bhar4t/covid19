@@ -4,9 +4,8 @@ import "react-tabs/style/react-tabs.css";
 
 const styles = {
   tabs: {
-    height: "fill-available",
+    height: "100%",
     width: "92%",
-    paddingTop: "2vh",
     overflow: "auto",
     scrollBehavior: "smooth"
   },
@@ -15,10 +14,10 @@ const styles = {
     textTransform: "none"
   },
   td: { textAlign: "center" },
-  tdFirst: { whiteSpace: "nowrap", textTransform: "none" }
+  tdFirst: { textTransform: "none" }
 };
 
-export default ({ states, cases }) => (
+export default ({ states, cases, colors }) => (
   <Tabs style={styles.tabs}>
     <TabList>
       <Tab>State wise</Tab>
@@ -33,21 +32,29 @@ export default ({ states, cases }) => (
           <td style={styles.th}>Recovered</td>
           <td style={styles.th}>Deaths</td>
         </tr>
-        {states &&
-          states.length > 0 &&
-          states.map((e, i) => {
-            return (
-              <tr
-                style={{ backgroundColor: i % 2 === 0 ? "white" : "#f5fffd" }}
-              >
-                <td style={styles.tdFirst}>{e.state}</td>
-                <td style={styles.td}>{e.confirmed}</td>
-                <td style={styles.td}>{e.active}</td>
-                <td style={styles.td}>{e.recovered}</td>
-                <td style={styles.td}>{e.deaths}</td>
-              </tr>
-            );
-          })}
+        <tbody>
+          {states &&
+            states.length > 0 &&
+            states.map((e, i) => {
+              return (
+                <tr
+                  style={{ backgroundColor: i % 2 === 0 ? "white" : "#f5fffd" }}
+                >
+                  <td style={styles.tdFirst}>{e.state}</td>
+                  <td style={styles.td}>{e.confirmed}</td>
+                  <td style={{ ...styles.td, color: colors.case }}>
+                    {e.active}
+                  </td>
+                  <td style={{ ...styles.td, color: colors.recover }}>
+                    {e.recovered}
+                  </td>
+                  <td style={{ ...styles.td, color: colors.death }}>
+                    {e.deaths}
+                  </td>
+                </tr>
+              );
+            })}
+        </tbody>
       </table>
     </TabPanel>
     <TabPanel>
@@ -69,12 +76,24 @@ export default ({ states, cases }) => (
                 style={{ backgroundColor: i % 2 === 0 ? "white" : "#f5fffd" }}
               >
                 <td style={styles.tdFirst}>{e.date}</td>
-                <td style={styles.td}>{e.dailyconfirmed}</td>
-                <td style={styles.td}>{e.dailyrecovered}</td>
-                <td style={styles.td}>{e.dailydeceased}</td>
-                <td style={styles.td}>{e.totalconfirmed}</td>
-                <td style={styles.td}>{e.totalrecovered}</td>
-                <td style={styles.td}>{e.totaldeceased}</td>
+                <td style={{ ...styles.td, color: colors.case }}>
+                  {e.dailyconfirmed}
+                </td>
+                <td style={{ ...styles.td, color: colors.recover }}>
+                  {e.dailyrecovered}
+                </td>
+                <td style={{ ...styles.td, color: colors.death }}>
+                  {e.dailydeceased}
+                </td>
+                <td style={{ ...styles.td, color: colors.case }}>
+                  {e.totalconfirmed}
+                </td>
+                <td style={{ ...styles.td, color: colors.recover }}>
+                  {e.totalrecovered}
+                </td>
+                <td style={{ ...styles.td, color: colors.death }}>
+                  {e.totaldeceased}
+                </td>
               </tr>
             );
           })}
