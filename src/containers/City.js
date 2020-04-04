@@ -8,13 +8,13 @@ function useFetchData() {
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     Axios.get("https://api.covid19india.org/state_district_wise.json")
-      .then(data => {
+      .then((data) => {
         if (data.status === 200) return data.data;
         else {
           throw new Error("Unable to fetch data.");
         }
       })
-      .then(data => {
+      .then((data) => {
         const root = {
           key: "india",
           label: "India",
@@ -22,39 +22,20 @@ function useFetchData() {
             return {
               key,
               label: key,
-              isOpen: true,
               nodes: Object.entries(state.districtData).map(([c, city]) => {
                 return {
                   key: c,
-                  label: (
-                    <span>
-                      {c}
-                      <span
-                        style={{
-                          backgroundColor: "#ffc3c3",
-                          borderRadius: 25,
-                          padding: 4,
-                          minHeight: 15,
-                          minWidth: 15,
-                          color: "black"
-                        }}
-                      >
-                        {city.confirmed < 10
-                          ? `0${city.confirmed}`
-                          : city.confirmed}
-                      </span>
-                    </span>
-                  )
+                  label: `${c}  >  ${city.confirmed}`,
                 };
-              })
+              }),
             };
-          })
+          }),
         };
         setStates([root]);
         setErrorMessage("");
         setLoader(false);
       })
-      .catch(errorMessage => {
+      .catch((errorMessage) => {
         setErrorMessage(errorMessage);
         setLoader(false);
         setStates(null);
@@ -64,7 +45,7 @@ function useFetchData() {
   return {
     states,
     loader,
-    errorMessage
+    errorMessage,
   };
 }
 

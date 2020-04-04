@@ -33,14 +33,8 @@ export default function City({ states, isLoading, errorMessage }) {
           errorMessage
         ) : states !== null ? (
           <>
-            <TreeMenu
-              initialOpenNodes={["india"]}
-              hasSearch={false}
-              data={states}
-            />
-            <span style={styles.footer}>
-              Click on <span style={{ color: "black" }}>+</span> to expand
-            </span>
+            <TreeMenu initialOpenNodes={["india"]} data={states} />
+            <Footer />
           </>
         ) : (
           "Data not found"
@@ -49,3 +43,9 @@ export default function City({ states, isLoading, errorMessage }) {
     </Layout>
   );
 }
+
+const Footer = () => (
+  <span style={styles.footer}>
+    Click on <span style={{ color: "black" }}>+</span> to expand
+  </span>
+);
