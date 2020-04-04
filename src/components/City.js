@@ -13,8 +13,14 @@ const styles = {
     width: "100vw",
     alignItem: "center",
     overflow: "scroll",
-    animationDelay: "1.2s"
-  }
+    animationDelay: "1.2s",
+  },
+  footer: {
+    textAlign: "center",
+    color: "gray",
+    padding: 8,
+    whiteSpace: "nowrap",
+  },
 };
 
 export default function City({ states, isLoading, errorMessage }) {
@@ -26,7 +32,16 @@ export default function City({ states, isLoading, errorMessage }) {
         ) : errorMessage !== "" ? (
           errorMessage
         ) : states !== null ? (
-          <TreeMenu hasSearch={false} data={states} />
+          <>
+            <TreeMenu
+              initialOpenNodes={["india"]}
+              hasSearch={false}
+              data={states}
+            />
+            <span style={styles.footer}>
+              Click on <span style={{ color: "black" }}>+</span> to expand
+            </span>
+          </>
         ) : (
           "Data not found"
         )}

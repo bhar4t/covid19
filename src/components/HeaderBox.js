@@ -6,8 +6,8 @@ const styles = {
   container: {
     display: "flex",
     flexDirection: "column",
-    width: "90vw",
-    padding: "10px 0px",
+    width: "96vw",
+    padding: "8px 0px",
     justifyContent: "space-around",
     alignItems: "center",
     backgroundColor: "whitesmoke",
