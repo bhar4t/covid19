@@ -495,6 +495,7 @@ table {
     h5,
     h6 {
       margin: 0;
+      text-transform: none;
     }
     h4 {
       color: #e23028;
@@ -504,7 +505,8 @@ table {
       font-weight: 600;
     }
     .stats {
-      background: $cherry-light;
+      background-color: whitesmoke;
+      box-shadow: black 3px 2px 5px -6px;
       color: $cherry;
       padding: 0.5rem;
       border-radius: 5px;
@@ -521,30 +523,33 @@ table {
         }
       }
       &.is-green {
-        background: $green-light;
+        background-color: whitesmoke;
         h5,
         h6 {
           color: $green-mid;
+          text-transform: none;
         }
         h1 {
           color: $green;
         }
       }
       &.is-blue {
-        background: $blue-light;
+        background-color: whitesmoke;
         h5,
         h6 {
           color: $blue-mid;
+          text-transform: none;
         }
         h1 {
           color: $blue;
         }
       }
       &.is-gray {
-        background: $gray-light;
+        background-color: whitesmoke;
         h5,
         h6 {
           color: $gray-mid;
+          text-transform: none;
         }
         h1 {
           color: $gray;

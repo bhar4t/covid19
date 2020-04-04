@@ -23,7 +23,7 @@ const styles = {
     borderRadius: "8px",
     padding: "4px",
     fontSize: "2.5vh",
-    boxShadow: "3px 2px 5px -6px black",
+    boxShadow: "0px 2px 5px -6px black",
   },
   updatedAt: {
     flexDirection: "row",
@@ -44,7 +44,7 @@ const styles = {
     opacity: "85%",
     fontSize: "2.5vh",
     color: "#50b6ff",
-    backgroundColor: "white",
+    backgroundColor: "#fafafa",
     textAlign: "center",
     borderRadius: 25,
     padding: 4,
@@ -89,6 +89,7 @@ export default function HeaderBox({ today, total, colors }) {
         <div
           style={{
             ...styles.update,
+            boxShadow: "-3px 2px 5px -6px black",
             color: colors.case,
           }}
         >
@@ -113,6 +114,7 @@ export default function HeaderBox({ today, total, colors }) {
         <div
           style={{
             ...styles.update,
+            boxShadow: "3px 2px 5px -6px black",
             color: colors.death,
           }}
         >
@@ -128,6 +130,7 @@ export default function HeaderBox({ today, total, colors }) {
         <div
           style={{
             ...styles.update,
+            boxShadow: "-3px 2px 5px -6px black",
             color: colors.case,
           }}
         >
@@ -146,6 +149,7 @@ export default function HeaderBox({ today, total, colors }) {
         <div
           style={{
             ...styles.update,
+            boxShadow: "3px 2px 5px -6px black",
             color: colors.death,
           }}
         >
@@ -173,22 +177,24 @@ export default function HeaderBox({ today, total, colors }) {
             ? today[0].lastupdatedtime
             : "Date Missing"}
         </div>
-        <Share2
-          size="24"
-          color="pink"
-          onClick={(e) => {
-            e.preventDefault();
-            handleShare(
-              today[0].confirmeddelta,
-              today[0].recovereddelta,
-              today[0].deceaseddelta,
-              total.confirmed,
-              total.recovered,
-              total.deaths,
-              today[0].lastupdatedtime
-            );
-          }}
-        />
+        {navigator.share && (
+          <Share2
+            size="24"
+            color="pink"
+            onClick={(e) => {
+              e.preventDefault();
+              handleShare(
+                today[0].confirmeddelta,
+                today[0].recovereddelta,
+                today[0].deceaseddelta,
+                total.confirmed,
+                total.recovered,
+                total.deaths,
+                today[0].lastupdatedtime
+              );
+            }}
+          />
+        )}
       </div>
     </div>
   );
