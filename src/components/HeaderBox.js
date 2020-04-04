@@ -1,5 +1,6 @@
 import React from "react";
 import CountUp from "react-countup";
+import { Share2 } from "react-feather";
 
 const styles = {
   container: {
@@ -11,7 +12,7 @@ const styles = {
     alignItems: "center",
     backgroundColor: "whitesmoke",
     borderRadius: 24,
-    height: "auto"
+    height: "auto",
   },
   update: {
     width: "26%",
@@ -22,13 +23,13 @@ const styles = {
     borderRadius: "8px",
     padding: "4px",
     fontSize: "2.5vh",
-    boxShadow: "3px 2px 5px -6px black"
+    boxShadow: "3px 2px 5px -6px black",
   },
   updatedAt: {
     flexDirection: "row",
     width: "85%",
     fontSize: "1.8vh",
-    boxShadow: "none"
+    boxShadow: "none",
   },
   status: {
     width: "100%",
@@ -36,7 +37,7 @@ const styles = {
     display: "flex",
     justifyContent: "space-around",
     alignItems: "center",
-    flex: 1
+    flex: 1,
   },
   title: {
     width: "85%",
@@ -46,15 +47,41 @@ const styles = {
     backgroundColor: "white",
     textAlign: "center",
     borderRadius: 25,
-    padding: 4
+    padding: 4,
   },
   statusLabel: {
     color: "black",
-    opacity: "50%"
-  }
+    opacity: "50%",
+  },
 };
 
 export default function HeaderBox({ today, total, colors }) {
+  const handleShare = (
+    cases,
+    recovered,
+    deaths,
+    totalCases,
+    totalRecovered,
+    totalDeaths,
+    updatedAt
+  ) => {
+    if (navigator.share) {
+      navigator
+        .share({
+          title: "Covid19 - India (Live: Corona Patient Tracker)",
+          text: `Covid19 - India\n\nTODAY\nCases: ${cases},\nRecoverd: ${recovered},\nDeaths: ${deaths}, \n\nTOTAL\nCases: ${totalCases},\nRecoverd: ${totalRecovered},\nDeaths: ${totalDeaths}\nUpdated @ ${updatedAt}\n\nStay Informed, Stay Safe!\nFor more information click on below link`,
+          url: "https://corona-in.web.app",
+        })
+        .then(() => {
+          console.log("Thanks for sharing!");
+        })
+        .catch((err) => {
+          console.log(`Couldn't share because of`, err.message);
+        });
+    } else {
+      console.log("web share not supported");
+    }
+  };
   return (
     <div style={styles.container}>
       <div style={styles.title}>Today</div>
@@ -62,7 +89,7 @@ export default function HeaderBox({ today, total, colors }) {
         <div
           style={{
             ...styles.update,
-            color: colors.case
+            color: colors.case,
           }}
         >
           <div style={styles.statusLabel}>Cases</div>
@@ -74,7 +101,7 @@ export default function HeaderBox({ today, total, colors }) {
         <div
           style={{
             ...styles.update,
-            color: colors.recover
+            color: colors.recover,
           }}
         >
           <div style={styles.statusLabel}>Recovered</div>
@@ -86,7 +113,7 @@ export default function HeaderBox({ today, total, colors }) {
         <div
           style={{
             ...styles.update,
-            color: colors.death
+            color: colors.death,
           }}
         >
           <div style={styles.statusLabel}>Deaths</div>
@@ -101,7 +128,7 @@ export default function HeaderBox({ today, total, colors }) {
         <div
           style={{
             ...styles.update,
-            color: colors.case
+            color: colors.case,
           }}
         >
           <div style={styles.statusLabel}>Cases</div>
@@ -110,7 +137,7 @@ export default function HeaderBox({ today, total, colors }) {
         <div
           style={{
             ...styles.update,
-            color: colors.recover
+            color: colors.recover,
           }}
         >
           <div style={styles.statusLabel}>Recovered</div>
@@ -119,7 +146,7 @@ export default function HeaderBox({ today, total, colors }) {
         <div
           style={{
             ...styles.update,
-            color: colors.death
+            color: colors.death,
           }}
         >
           <div style={styles.statusLabel}>Deaths</div>
@@ -129,14 +156,14 @@ export default function HeaderBox({ today, total, colors }) {
       <div
         style={{
           ...styles.update,
-          ...styles.updatedAt
+          ...styles.updatedAt,
         }}
       >
         <div
           style={{
             ...styles.statusLabel,
             display: "flex",
-            whiteSpace: "nowrap"
+            whiteSpace: "nowrap",
           }}
         >
           Last updated
@@ -146,6 +173,22 @@ export default function HeaderBox({ today, total, colors }) {
             ? today[0].lastupdatedtime
             : "Date Missing"}
         </div>
+        <Share2
+          size="24"
+          color="pink"
+          onClick={(e) => {
+            e.preventDefault();
+            handleShare(
+              today[0].confirmeddelta,
+              today[0].recovereddelta,
+              today[0].deceaseddelta,
+              total.confirmed,
+              total.recovered,
+              total.deaths,
+              today[0].lastupdatedtime
+            );
+          }}
+        />
       </div>
     </div>
   );
