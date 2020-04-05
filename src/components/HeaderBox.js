@@ -57,9 +57,9 @@ const styles = {
 
 export default function HeaderBox({ today, total, colors }) {
   const handleShare = (
-    // cases,
-    // recovered,
-    // deaths,
+    cases,
+    recovered,
+    deaths,
     totalCases,
     totalRecovered,
     totalDeaths,
@@ -69,8 +69,8 @@ export default function HeaderBox({ today, total, colors }) {
       navigator
         .share({
           title: "Covid19 - India (Live: Corona Patient Tracker)",
-          // text: `Covid19 - India\n\nTODAY\nCases: ${cases},\nRecoverd: ${recovered},\nDeaths: ${deaths}, \n\nTOTAL\nCases: ${totalCases},\nRecoverd: ${totalRecovered},\nDeaths: ${totalDeaths}\nUpdated @ ${updatedAt}\n\nStay Informed, Stay Safe!\nFor more information click on below link`,
-          text: `Covid19 - India\n\nTOTAL\nCases: ${totalCases},\nRecoverd: ${totalRecovered},\nDeaths: ${totalDeaths}\nUpdated @ ${updatedAt}\n\nStay Informed, Stay Safe!\nFor more information click on below link`,
+          text: `Covid19 - India\n\nTODAY\nCases: ${cases},\nRecoverd: ${recovered},\nDeaths: ${deaths}, \n\nTOTAL\nCases: ${totalCases},\nRecoverd: ${totalRecovered},\nDeaths: ${totalDeaths}\nUpdated @ ${updatedAt}\n\nStay Informed, Stay Safe!\nFor more information click on below link`,
+          // text: `Covid19 - India\n\nTOTAL\nCases: ${totalCases},\nRecoverd: ${totalRecovered},\nDeaths: ${totalDeaths}\nUpdated @ ${updatedAt}\n\nStay Informed, Stay Safe!\nFor more information click on below link`,
           url: "https://corona-in.web.app",
         })
         .then(() => {
@@ -85,7 +85,7 @@ export default function HeaderBox({ today, total, colors }) {
   };
   return (
     <div style={styles.container}>
-      {/* <div style={styles.title}>Today</div>
+      <div style={styles.title}>Today</div>
       <div style={styles.status}>
         <div
           style={{
@@ -125,7 +125,7 @@ export default function HeaderBox({ today, total, colors }) {
             duration={2.75}
           />
         </div>
-      </div> */}
+      </div>
       <div style={styles.title}>Total</div>
       <div style={styles.status}>
         <div
@@ -185,9 +185,9 @@ export default function HeaderBox({ today, total, colors }) {
             onClick={(e) => {
               e.preventDefault();
               handleShare(
-                // today[0].confirmeddelta,
-                // today[0].recovereddelta,
-                // today[0].deceaseddelta,
+                today[0].confirmeddelta,
+                today[0].recovereddelta,
+                today[0].deceaseddelta,
                 total.confirmed,
                 total.recovered,
                 total.deaths,

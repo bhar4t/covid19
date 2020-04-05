@@ -20,10 +20,23 @@ function useFetchData() {
       })
       .then((data) => {
         setCases(data.cases_time_series);
-        // setToday(data.key_values);
-        setToday([{ lastupdatedtime: data.statewise[0].lastupdatedtime }]);
+        const yesterday =
+          data.cases_time_series &&
+          data.cases_time_series.length > 0 &&
+          data.cases_time_series[data.cases_time_series.length - 1];
+        const total =
+          data.statewise && data.statewise.length > 0 && data.statewise[0];
+        if (yesterday && total) {
+          const today = {
+            confirmeddelta: total.confirmed - yesterday.totalconfirmed,
+            recovereddelta: total.recovered - yesterday.totalrecovered,
+            deceaseddelta: total.deaths - yesterday.totaldeceased,
+            lastupdatedtime: data.statewise[0].lastupdatedtime,
+          };
+          setToday([today]);
+        }
         setStates(data.statewise);
-        setTotal(data.statewise[0]);
+        setTotal(total);
         setTested(data.tested);
         setErrorMessage("");
         setLoader(false);
