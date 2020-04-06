@@ -70,7 +70,6 @@ export default function HeaderBox({ today, total, colors }) {
         .share({
           title: "Covid19 - India (Live: Corona Patient Tracker)",
           text: `Covid19 - India\n\nTODAY\nCases: ${cases},\nRecoverd: ${recovered},\nDeaths: ${deaths}, \n\nTOTAL\nCases: ${totalCases},\nRecoverd: ${totalRecovered},\nDeaths: ${totalDeaths}\nUpdated at: ${updatedAt}\n\nStay Informed, Stay Safe!\nFor more information click on below link\n`,
-          // text: `Covid19 - India\n\nTOTAL\nCases: ${totalCases},\nRecoverd: ${totalRecovered},\nDeaths: ${totalDeaths}\nUpdated @ ${updatedAt}\n\nStay Informed, Stay Safe!\nFor more information click on below link`,
           url: "https://corona-in.web.app",
         })
         .then(() => {
@@ -96,7 +95,9 @@ export default function HeaderBox({ today, total, colors }) {
         >
           <div style={styles.statusLabel}>Cases</div>
           <CountUp
-            end={today && today.length > 0 ? today[0].confirmeddelta : 0}
+            end={
+              today && today.length > 0 ? Number(today[0].confirmeddelta) : 0
+            }
             duration={2.75}
           />
         </div>
@@ -108,7 +109,9 @@ export default function HeaderBox({ today, total, colors }) {
         >
           <div style={styles.statusLabel}>Recovered</div>
           <CountUp
-            end={today && today.length > 0 ? today[0].recovereddelta : 0}
+            end={
+              today && today.length > 0 ? Number(today[0].recovereddelta) : 0
+            }
             duration={2.75}
           />
         </div>
@@ -121,7 +124,7 @@ export default function HeaderBox({ today, total, colors }) {
         >
           <div style={styles.statusLabel}>Deaths</div>
           <CountUp
-            end={today && today.length > 0 ? today[0].deceaseddelta : 0}
+            end={today && today.length > 0 ? Number(today[0].deceaseddelta) : 0}
             duration={2.75}
           />
         </div>
@@ -136,7 +139,7 @@ export default function HeaderBox({ today, total, colors }) {
           }}
         >
           <div style={styles.statusLabel}>Cases</div>
-          <CountUp end={total ? total.confirmed : 0} duration={2.75} />
+          <CountUp end={total ? Number(total.confirmed) : 0} duration={2.75} />
         </div>
         <div
           style={{
@@ -145,7 +148,7 @@ export default function HeaderBox({ today, total, colors }) {
           }}
         >
           <div style={styles.statusLabel}>Recovered</div>
-          <CountUp end={total ? total.recovered : 0} duration={2.75} />
+          <CountUp end={total ? Number(total.recovered) : 0} duration={2.75} />
         </div>
         <div
           style={{
@@ -155,7 +158,7 @@ export default function HeaderBox({ today, total, colors }) {
           }}
         >
           <div style={styles.statusLabel}>Deaths</div>
-          <CountUp end={total ? total.deaths : 0} duration={2.75} />
+          <CountUp end={total ? Number(total.deaths) : 0} duration={2.75} />
         </div>
       </div>
       <div

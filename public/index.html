@@ -88,17 +88,17 @@
           navigator.serviceWorker
             .register("worker.js")
             .then(
-              registration => {
+              (registration) => {
                 console.log(
                   "Worker registration successful",
                   registration.scope
                 );
               },
-              err => {
+              (err) => {
                 console.log("Worker registration failed", err);
               }
             )
-            .catch(err => {
+            .catch((err) => {
               console.log(err);
             });
         });
@@ -106,24 +106,46 @@
         console.log("Service Worker is not supported by browser.");
       }
     </script>
-    <script src="/__/firebase/7.13.1/firebase-app.js"></script>
-    <script src="/__/firebase/7.13.1/firebase-analytics.js"></script>
-    <script src="/__/firebase/init.js"></script>
+
+    <!-- Firebase Analytics -->
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.13.2/firebase-analytics.js"></script>
+
+    <script>
+      // Your web app's Firebase configuration
+      var firebaseConfig = {
+        apiKey: "AIzaSyBj7H5w5RlLnnCyjHeoEkWsiJLtqv7I910",
+        authDomain: "corona-in.firebaseapp.com",
+        databaseURL: "https://corona-in.firebaseio.com",
+        projectId: "corona-in",
+        storageBucket: "corona-in.appspot.com",
+        messagingSenderId: "984826070852",
+        appId: "1:984826070852:web:8d74726cbc6eee222f3911",
+        measurementId: "G-Z3ZMBXH96H",
+      };
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
 
     <!-- Facebook Analytics -->
     <script>
-      window.fbAsyncInit = function() {
+      window.fbAsyncInit = function () {
         FB.init({
           appId: "245146429981956",
           cookie: true,
           xfbml: true,
-          version: "v6.0"
+          version: "v6.0",
         });
 
         FB.AppEvents.logPageView();
       };
 
-      (function(d, s, id) {
+      (function (d, s, id) {
         var js,
           fjs = d.getElementsByTagName(s)[0];
         if (d.getElementById(id)) {

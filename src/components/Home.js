@@ -15,7 +15,7 @@ const styles = {
     width: "100vw",
     alignItems: "center",
     animationDelay: "1.2s",
-    overflow: "hidden"
+    overflow: "hidden",
   },
   content: {
     top: "50%",
@@ -23,25 +23,25 @@ const styles = {
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
-    transform: "translate(-50%, -50%)"
+    transform: "translate(-50%, -50%)",
   },
   modalContainer: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "12px"
+    padding: "12px",
   },
   modalContent: {
     display: "flex",
     flexDirection: "column",
     padding: 10,
-    width: "75vw"
+    width: "75vw",
   },
   colors: {
     case: "#03a9f4",
     recover: "#53b501",
-    death: "#ff9100"
-  }
+    death: "#ff9100",
+  },
 };
 
 const customStyles = {
@@ -51,8 +51,8 @@ const customStyles = {
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
-    transform: "translate(-50%, -50%)"
-  }
+    transform: "translate(-50%, -50%)",
+  },
 };
 
 export default function Home({
@@ -62,7 +62,7 @@ export default function Home({
   total,
   tested,
   isLoading,
-  errorMessage
+  errorMessage,
 }) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
   function closeModal() {
@@ -110,6 +110,7 @@ export default function Home({
           onRequestClose={closeModal}
           style={customStyles}
           contentLabel="Install"
+          ariaHideApp={false}
         >
           <div style={styles.modalContainer}>
             <span style={{ fontSize: "3vh" }}>Instant Installation</span>

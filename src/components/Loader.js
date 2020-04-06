@@ -8,8 +8,8 @@ const styles = {
     height: "100vh",
     width: "100vw",
     justifyContent: "center",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 };
 
 export default function Loader(props) {
@@ -17,7 +17,7 @@ export default function Loader(props) {
     return (
       <Layout selectedNav={1}>
         <div style={styles.container}>
-          <div class="lds-ripple">
+          <div className="lds-ripple">
             <div></div>
             <div></div>
           </div>
@@ -27,7 +27,7 @@ export default function Loader(props) {
   else
     return (
       <div style={styles.container}>
-        <div class="lds-ripple">
+        <div className="lds-ripple">
           <div></div>
           <div></div>
         </div>

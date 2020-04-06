@@ -8,7 +8,7 @@ const styles = {
     width: "100vw",
     display: "flex",
     flexDirection: "column",
-    alignItem: "center"
+    alignItem: "center",
   },
   appBar: {
     position: "fixed",
@@ -18,7 +18,7 @@ const styles = {
     display: "flex",
     alignItems: "center",
     padding: "0px 24px",
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   footer: {
     position: "fixed",
@@ -30,7 +30,7 @@ const styles = {
     alignItem: "center",
     backgroundColor: "#f2f5fe",
     borderTopRightRadius: 30,
-    borderTopLeftRadius: 30
+    borderTopLeftRadius: 30,
   },
   navigation: {
     display: "flex",
@@ -39,21 +39,21 @@ const styles = {
     alignItems: "center",
     whiteSpace: "nowrap",
     fontSize: 8,
-    padding: 3
+    padding: 3,
   },
   title: {
     background: "-webkit-linear-gradient(#eee, #333)",
-    webkitBackgroundClip: "text",
+    WebkitBackgroundClip: "text",
     fontSize: 30,
-    webkitTextFillColor: "transparent"
-  }
+    WebkitTextFillColor: "transparent",
+  },
 };
 
 function App(props) {
   const navigations = [
     { icon: "Map", title: "Map", route: "/map" },
     { icon: "Home", title: "Home", route: "/" },
-    { icon: "List", title: "City", route: "/city" }
+    { icon: "List", title: "City", route: "/city" },
   ];
   return (
     <div style={styles.container}>
@@ -66,12 +66,12 @@ function App(props) {
         {navigations.map((nav, i) => {
           const Tag = Icon[nav.icon];
           return (
-            <span style={styles.navigation}>
+            <span key={nav.title} style={styles.navigation}>
               <Tag
                 style={{ padding: 10 }}
                 color={props.selectedNav === 1 + i ? "black" : "#009999"}
                 size={props.selectedNav === 1 + i ? 32 : 28}
-                onClick={e => {
+                onClick={(e) => {
                   e.preventDefault();
                   props.history.push(nav.route);
                 }}
