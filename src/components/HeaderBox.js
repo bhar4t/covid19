@@ -69,7 +69,7 @@ export default function HeaderBox({ today, total, colors }) {
       navigator
         .share({
           title: "Covid19 - India (Live: Corona Patient Tracker)",
-          text: `Covid19 - India\n\nTODAY\nCases: ${cases},\nRecoverd: ${recovered},\nDeaths: ${deaths}, \n\nTOTAL\nCases: ${totalCases},\nRecoverd: ${totalRecovered},\nDeaths: ${totalDeaths}\nUpdated @ ${updatedAt}\n\nStay Informed, Stay Safe!\nFor more information click on below link`,
+          text: `Covid19 - India\n\nTODAY\nCases: ${cases},\nRecoverd: ${recovered},\nDeaths: ${deaths}, \n\nTOTAL\nCases: ${totalCases},\nRecoverd: ${totalRecovered},\nDeaths: ${totalDeaths}\nUpdated at: ${updatedAt}\n\nStay Informed, Stay Safe!\nFor more information click on below link\n`,
           // text: `Covid19 - India\n\nTOTAL\nCases: ${totalCases},\nRecoverd: ${totalRecovered},\nDeaths: ${totalDeaths}\nUpdated @ ${updatedAt}\n\nStay Informed, Stay Safe!\nFor more information click on below link`,
           url: "https://corona-in.web.app",
         })
