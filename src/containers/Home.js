@@ -28,9 +28,18 @@ function useFetchData() {
           data.statewise && data.statewise.length > 0 && data.statewise[0];
         if (yesterday && total) {
           const today = {
-            confirmeddelta: total.confirmed - yesterday.totalconfirmed,
-            recovereddelta: total.recovered - yesterday.totalrecovered,
-            deceaseddelta: total.deaths - yesterday.totaldeceased,
+            confirmeddelta:
+              total.confirmed - yesterday.totalconfirmed < 0
+                ? 0
+                : total.confirmed - yesterday.totalconfirmed,
+            recovereddelta:
+              total.recovered - yesterday.totalrecovered < 0
+                ? 0
+                : total.recovered - yesterday.totalrecovered,
+            deceaseddelta:
+              total.deaths - yesterday.totaldeceased < 0
+                ? 0
+                : total.deaths - yesterday.totaldeceased,
             lastupdatedtime: data.statewise[0].lastupdatedtime,
           };
           setToday([today]);
