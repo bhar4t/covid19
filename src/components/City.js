@@ -3,6 +3,7 @@ import Layout from "../layouts/Layout";
 import TreeMenu from "react-simple-tree-menu";
 import "../../node_modules/react-simple-tree-menu/dist/main.css";
 import Loader from "./Loader";
+import Error from "./Error";
 
 const styles = {
   container: {
@@ -30,7 +31,7 @@ export default function City({ states, isLoading, errorMessage }) {
         {isLoading ? (
           <Loader />
         ) : errorMessage !== "" ? (
-          errorMessage
+          <Error message={errorMessage} />
         ) : states !== null ? (
           <>
             <TreeMenu initialOpenNodes={["india"]} data={states} />

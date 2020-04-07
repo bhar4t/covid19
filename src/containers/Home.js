@@ -51,13 +51,16 @@ function useFetchData() {
         setLoader(false);
       })
       .catch((errorMessage) => {
+        console.log(errorMessage);
         setCases([]);
         setToday([]);
         setStates([]);
         setTested([]);
         setTotal({});
-        setErrorMessage(errorMessage);
         setLoader(false);
+        setErrorMessage(
+          "Unable to fetch data from server.\nPlease try again later."
+        );
       });
   }, []);
 

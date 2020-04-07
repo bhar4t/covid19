@@ -11,13 +11,13 @@ function useFetchData() {
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     Axios.get("https://api.covid19india.org/data.json")
-      .then(data => {
+      .then((data) => {
         if (data.status === 200) return data.data;
         else {
           throw new Error("Unable to fetch data.");
         }
       })
-      .then(data => {
+      .then((data) => {
         setCases(data.cases_time_series);
         setToday(data.key_values);
         setStates(data.statewise);
@@ -25,12 +25,14 @@ function useFetchData() {
         setErrorMessage("");
         setLoader(false);
       })
-      .catch(errorMessage => {
+      .catch((errorMessage) => {
         setCases([]);
         setToday([]);
         setStates([]);
         setTested([]);
-        setErrorMessage(errorMessage);
+        setErrorMessage(
+          "Unable to fetch data from server.\nPlease try again later."
+        );
         setLoader(false);
       });
   }, []);
@@ -40,10 +42,10 @@ function useFetchData() {
       cases,
       today,
       states,
-      tested
+      tested,
     },
     loader,
-    errorMessage
+    errorMessage,
   };
 }
 

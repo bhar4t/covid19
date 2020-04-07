@@ -36,7 +36,9 @@ function useFetchData() {
         setLoader(false);
       })
       .catch((errorMessage) => {
-        setErrorMessage(errorMessage);
+        setErrorMessage(
+          "Unable to fetch data from server.\nPlease try again later."
+        );
         setLoader(false);
         setStates(null);
       });

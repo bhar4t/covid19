@@ -5,6 +5,7 @@ import Layout from "../layouts/Layout";
 import HeaderBox from "./HeaderBox";
 import Tabs from "./Tabs";
 import Loader from "./Loader";
+import Error from "./Error";
 
 const styles = {
   container: {
@@ -92,10 +93,7 @@ export default function Home({
         {isLoading ? (
           <Loader />
         ) : !isLoading && errorMessage !== "" ? (
-          <span>
-            Unable to fetch data, Please try again later <br />
-            {errorMessage}
-          </span>
+          <Error message={errorMessage} />
         ) : (
           <>
             <HeaderBox today={today} total={total} colors={styles.colors} />
