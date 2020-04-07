@@ -58,9 +58,7 @@ function useFetchData() {
         setTested([]);
         setTotal({});
         setLoader(false);
-        setErrorMessage(
-          "Unable to fetch data from server.\nPlease try again later."
-        );
+        setErrorMessage("Unable to fetch data from server.");
       });
   }, []);
 

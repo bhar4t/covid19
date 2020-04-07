@@ -205,7 +205,7 @@ export default ({ states, cases, colors }) => {
         <div style={styles.visuals}>
           <div style={styles.text}>
             {cases && cases.length > 0
-              ? `${cases[cases.length - 1].date}-${cases[0].date}`
+              ? `${cases[cases.length - 1].date} - ${cases[0].date}`
               : "Data fetching..."}
           </div>
           <Chart data={data} axes={axes} />

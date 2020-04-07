@@ -25,6 +25,7 @@ export default function Error(props) {
     <div style={styles.container}>
       <img src="/error.gif" width="80%" alt="Error - Covid19 - India"></img>
       <span style={styles.message}>{props.message}</span>
+      <span style={styles.message}>Please try again later.</span>
     </div>
   );
 }
