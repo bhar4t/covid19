@@ -42,7 +42,17 @@ function useFetchData() {
                 : total.deaths - yesterday.totaldeceased,
             lastupdatedtime: data.statewise[0].lastupdatedtime,
           };
-          setToday([today]);
+          if (
+            today.confirmeddelta === 0 &&
+            today.recovereddelta === 0 &&
+            today.deceaseddelta === 0
+          ) {
+            today.confirmeddelta = yesterday.dailyconfirmed;
+            today.recovereddelta = yesterday.dailyrecovered;
+            today.deceaseddelta = yesterday.dailydeceased;
+            today.lastupdatedtime = data.statewise[0].lastupdatedtime;
+            setToday([today]);
+          } else setToday([today]);
         }
         setStates(data.statewise);
         setTotal(total);

@@ -1,11 +1,11 @@
-var CACHE_NAME = "covid19v1";
+var CACHE_NAME = "covid19v2";
 var urlsToCache = [
   "/",
   "/states",
   "/map",
   "/error.gif",
   "/corona-in.png",
-  "android-icon-36x36.png",
+  "/android-icon-36x36.png",
 ];
 
 // Install a service worker
@@ -34,7 +34,7 @@ self.addEventListener("fetch", (event) => {
 
 // Update a service worker
 self.addEventListener("activate", (event) => {
-  var cacheWhitelist = ["covid19v1"];
+  var cacheWhitelist = ["covid19v2"];
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
