@@ -204,9 +204,9 @@ export default ({ states, cases, colors }) => {
       <TabPanel>
         <div style={styles.visuals}>
           <div style={styles.text}>
-            {cases && cases.length > 0
-              ? `${cases[0].date} - ${cases[cases.length - 1].date}`
-              : "Data fetching..."}
+            {cases &&
+              cases.length > 0 &&
+              `${cases[0].date} - ${cases[cases.length - 1].date}`}
           </div>
           <Chart data={data} axes={axes} />
           <div style={styles.footer}>
