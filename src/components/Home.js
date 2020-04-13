@@ -98,7 +98,7 @@ export default function Home({
           <>
             <HeaderBox today={today} total={total} colors={styles.colors} />
             <br />
-            <Tabs states={states} cases={cases} colors={styles.colors} />
+            <Tabs states={states} cases={cases} />
           </>
         )}
       </div>

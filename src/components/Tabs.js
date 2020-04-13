@@ -1,7 +1,74 @@
 import React from "react";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { Chart } from "react-charts";
+import { useTable, useSortBy } from "react-table";
 import "react-tabs/style/react-tabs.css";
+
+const stateHeaders = [
+  {
+    Header: "States",
+    accessor: "state",
+    sortType: "basic",
+  },
+  {
+    Header: "Confirmed",
+    accessor: "confirmed",
+    sortType: "basic",
+  },
+  {
+    Header: "Active",
+    accessor: "active",
+    sortType: "basic",
+  },
+  {
+    Header: "Recovered",
+    accessor: "recovered",
+    sortType: "basic",
+  },
+  {
+    Header: "Deaths",
+    accessor: "deaths",
+    sortType: "basic",
+  },
+];
+
+const casesHeaders = [
+  {
+    Header: "Date",
+    accessor: "date",
+    sortType: "basic",
+  },
+  {
+    Header: "Confirmed",
+    accessor: "dailyconfirmed",
+    sortType: "basic",
+  },
+  {
+    Header: "Recovered",
+    accessor: "dailyrecovered",
+    sortType: "basic",
+  },
+  {
+    Header: "Deceased",
+    accessor: "dailydeceased",
+    sortType: "basic",
+  },
+  {
+    Header: "Total Confirmed",
+    accessor: "totalconfirmed",
+    sortType: "basic",
+  },
+  {
+    Header: "Total Recovered",
+    accessor: "totalrecovered",
+    sortType: "basic",
+  },
+  {
+    Header: "Total Deceased",
+    accessor: "totaldeceased",
+    sortType: "basic",
+  },
+];
 
 const styles = {
   tabs: {
@@ -39,31 +106,105 @@ const styles = {
   },
 };
 
-// dailyconfirmed: "1"
-// dailydeceased: "0"
-// dailyrecovered: "0"
-// date: "30 January "
-// totalconfirmed: "1"
-// totaldeceased: "0"
-// totalrecovered: "0"
+function Table({ columns, data }) {
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+  } = useTable(
+    {
+      columns,
+      data,
+    },
+    useSortBy
+  );
+  const firstPageRows = rows.slice(0, 50);
 
-export default ({ states, cases, colors }) => {
-  const data = React.useMemo(
+  return (
+    <>
+      <table {...getTableProps()} cellSpacing="10" cellPadding="10">
+        <thead>
+          {headerGroups.map((headerGroup) => (
+            <tr {...headerGroup.getHeaderGroupProps()} style={styles.th}>
+              {headerGroup.headers.map((column) => (
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
+                  <span style={styles.footer}>
+                    {column.render("Header")}
+                    <span>
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? " ▼"
+                          : " ▲"
+                        : " ⟲"}
+                    </span>
+                  </span>
+                </th>
+              ))}
+            </tr>
+          ))}
+        </thead>
+        <tbody {...getTableBodyProps()}>
+          {firstPageRows.map((row, i) => {
+            prepareRow(row);
+            return (
+              <tr
+                {...row.getRowProps()}
+                style={{
+                  backgroundColor: i % 2 === 0 ? "white" : "#f5fffd",
+                }}
+              >
+                {row.cells.map((cell) => {
+                  return (
+                    <td {...cell.getCellProps()} style={styles.tdFirst}>
+                      {cell.render("Cell")}
+                    </td>
+                  );
+                })}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </>
+  );
+}
+
+export default ({ states, cases }) => {
+  const columnsStates = React.useMemo(() => stateHeaders, []);
+  const columnsCases = React.useMemo(() => casesHeaders, []);
+
+  const stateData = React.useMemo(
+    () =>
+      states.map((e) => ({
+        active: e.active,
+        confirmed: e.confirmed,
+        deaths: e.deaths,
+        recovered: e.recovered,
+        state: e.state,
+      })),
+    [states]
+  );
+
+  const caseVisuals =
+    cases && cases.length > 0 ? cases.slice(30, cases.length - 1) : [];
+  const visualData = React.useMemo(
     () => [
       {
         label: "Confirmed",
-        data: cases.map((e, i) => ({ x: i, y: e.totalconfirmed })),
+        data: caseVisuals.map((e, i) => ({ x: i, y: e.totalconfirmed })),
       },
       {
         label: "Deceased",
-        data: cases.map((e, i) => ({ x: i, y: e.totaldeceased })),
+        data: caseVisuals.map((e, i) => ({ x: i, y: e.totaldeceased })),
       },
       {
         label: "Recovered",
-        data: cases.map((e, i) => ({ x: i, y: e.totalrecovered })),
+        data: caseVisuals.map((e, i) => ({ x: i, y: e.totalrecovered })),
       },
     ],
-    [cases]
+    [caseVisuals]
   );
 
   const axes = React.useMemo(
@@ -81,134 +222,21 @@ export default ({ states, cases, colors }) => {
         <Tab>Visuals</Tab>
       </TabList>
       <TabPanel>
-        <table cellSpacing="10" cellPadding="10">
-          <thead>
-            <tr>
-              <td style={styles.th}>State</td>
-              <td style={styles.th}>Confimed</td>
-              <td style={styles.th}>Active</td>
-              <td style={styles.th}>Recovered</td>
-              <td style={styles.th}>Deaths</td>
-            </tr>
-          </thead>
-          <tbody>
-            {states &&
-              states.length > 0 &&
-              states.map((e, i) => {
-                return (
-                  <tr
-                    key={`${i}-statewise`}
-                    style={{
-                      backgroundColor: i % 2 === 0 ? "white" : "#f5fffd",
-                    }}
-                  >
-                    <td key={`${i}-state`} style={styles.tdFirst}>
-                      {e.state}
-                    </td>
-                    <td key={`${i}-confirmed`} style={styles.td}>
-                      {e.confirmed}
-                    </td>
-                    <td
-                      key={`${i}-active`}
-                      style={{ ...styles.td, color: colors.case }}
-                    >
-                      {e.active}
-                    </td>
-                    <td
-                      key={`${i}-recovered`}
-                      style={{ ...styles.td, color: colors.recover }}
-                    >
-                      {e.recovered}
-                    </td>
-                    <td
-                      key={`${i}-deaths`}
-                      style={{ ...styles.td, color: colors.death }}
-                    >
-                      {e.deaths}
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
+        <Table columns={columnsStates} data={stateData} />
       </TabPanel>
       <TabPanel>
-        <table cellSpacing="10" cellPadding="10">
-          <thead>
-            <tr>
-              <td style={styles.th}>Date</td>
-              <td style={styles.th}>Confimed</td>
-              <td style={styles.th}>Recovered</td>
-              <td style={styles.th}>Deceased</td>
-              <td style={styles.th}>Total Confimed</td>
-              <td style={styles.th}>Total Recovered</td>
-              <td style={styles.th}>Total Deceased</td>
-            </tr>
-          </thead>
-          <tbody>
-            {cases &&
-              cases.length > 0 &&
-              cases.map((e, i) => {
-                return (
-                  <tr
-                    key={`${i}-dailyrecords`}
-                    style={{
-                      backgroundColor: i % 2 === 0 ? "white" : "#f5fffd",
-                    }}
-                  >
-                    <td key={`${i}-date`} style={styles.tdFirst}>
-                      {e.date}
-                    </td>
-                    <td
-                      key={`${i}-dailyconfirmed`}
-                      style={{ ...styles.td, color: colors.case }}
-                    >
-                      {e.dailyconfirmed}
-                    </td>
-                    <td
-                      key={`${i}-dailyrecovered`}
-                      style={{ ...styles.td, color: colors.recover }}
-                    >
-                      {e.dailyrecovered}
-                    </td>
-                    <td
-                      key={`${i}-dailydeceased`}
-                      style={{ ...styles.td, color: colors.death }}
-                    >
-                      {e.dailydeceased}
-                    </td>
-                    <td
-                      key={`${i}-totalconfirmed`}
-                      style={{ ...styles.td, color: colors.case }}
-                    >
-                      {e.totalconfirmed}
-                    </td>
-                    <td
-                      key={`${i}-totalrecovered`}
-                      style={{ ...styles.td, color: colors.recover }}
-                    >
-                      {e.totalrecovered}
-                    </td>
-                    <td
-                      key={`${i}-totaldeceased`}
-                      style={{ ...styles.td, color: colors.death }}
-                    >
-                      {e.totaldeceased}
-                    </td>
-                  </tr>
-                );
-              })}
-          </tbody>
-        </table>
+        <Table columns={columnsCases} data={cases} />
       </TabPanel>
       <TabPanel>
         <div style={styles.visuals}>
           <div style={styles.text}>
-            {cases &&
-              cases.length > 0 &&
-              `${cases[0].date} - ${cases[cases.length - 1].date}`}
+            {caseVisuals &&
+              caseVisuals.length > 0 &&
+              `${caseVisuals[0].date} - ${
+                caseVisuals[caseVisuals.length - 1].date
+              }`}
           </div>
-          <Chart data={data} axes={axes} />
+          <Chart data={visualData} axes={axes} />
           <div style={styles.footer}>
             <div style={styles.label}></div>
             <span style={styles.text}>Cases</span>
