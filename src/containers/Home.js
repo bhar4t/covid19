@@ -54,7 +54,15 @@ function useFetchData() {
             setToday([today]);
           } else setToday([today]);
         }
-        setStates(data.statewise);
+        setStates(
+          data.statewise.map((e) => ({
+            active: Number(e.active),
+            confirmed: Number(e.confirmed),
+            deaths: Number(e.deaths),
+            recovered: Number(e.recovered),
+            state: e.state,
+          }))
+        );
         setTotal(total);
         setTested(data.tested);
         setErrorMessage("");

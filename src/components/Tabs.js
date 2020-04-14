@@ -36,37 +36,30 @@ const casesHeaders = [
   {
     Header: "Date",
     accessor: "date",
-    sortType: "basic",
   },
   {
     Header: "Confirmed",
     accessor: "dailyconfirmed",
-    sortType: "basic",
   },
   {
     Header: "Recovered",
     accessor: "dailyrecovered",
-    sortType: "basic",
   },
   {
     Header: "Deceased",
     accessor: "dailydeceased",
-    sortType: "basic",
   },
   {
     Header: "Total Confirmed",
     accessor: "totalconfirmed",
-    sortType: "basic",
   },
   {
     Header: "Total Recovered",
     accessor: "totalrecovered",
-    sortType: "basic",
   },
   {
     Header: "Total Deceased",
     accessor: "totaldeceased",
-    sortType: "basic",
   },
 ];
 
@@ -120,7 +113,7 @@ function Table({ columns, data }) {
     },
     useSortBy
   );
-  const firstPageRows = rows.slice(0, 50);
+  const firstPageRows = rows;
 
   return (
     <>
@@ -175,36 +168,22 @@ export default ({ states, cases }) => {
   const columnsStates = React.useMemo(() => stateHeaders, []);
   const columnsCases = React.useMemo(() => casesHeaders, []);
 
-  const stateData = React.useMemo(
-    () =>
-      states.map((e) => ({
-        active: e.active,
-        confirmed: e.confirmed,
-        deaths: e.deaths,
-        recovered: e.recovered,
-        state: e.state,
-      })),
-    [states]
-  );
-
-  const caseVisuals =
-    cases && cases.length > 0 ? cases.slice(30, cases.length - 1) : [];
   const visualData = React.useMemo(
     () => [
       {
         label: "Confirmed",
-        data: caseVisuals.map((e, i) => ({ x: i, y: e.totalconfirmed })),
+        data: cases.map((e, i) => ({ x: i, y: e.totalconfirmed })),
       },
       {
         label: "Deceased",
-        data: caseVisuals.map((e, i) => ({ x: i, y: e.totaldeceased })),
+        data: cases.map((e, i) => ({ x: i, y: e.totaldeceased })),
       },
       {
         label: "Recovered",
-        data: caseVisuals.map((e, i) => ({ x: i, y: e.totalrecovered })),
+        data: cases.map((e, i) => ({ x: i, y: e.totalrecovered })),
       },
     ],
-    [caseVisuals]
+    [cases]
   );
 
   const axes = React.useMemo(
@@ -222,7 +201,7 @@ export default ({ states, cases }) => {
         <Tab>Visuals</Tab>
       </TabList>
       <TabPanel>
-        <Table columns={columnsStates} data={stateData} />
+        <Table columns={columnsStates} data={states} />
       </TabPanel>
       <TabPanel>
         <Table columns={columnsCases} data={cases} />
@@ -230,11 +209,9 @@ export default ({ states, cases }) => {
       <TabPanel>
         <div style={styles.visuals}>
           <div style={styles.text}>
-            {caseVisuals &&
-              caseVisuals.length > 0 &&
-              `${caseVisuals[0].date} - ${
-                caseVisuals[caseVisuals.length - 1].date
-              }`}
+            {cases &&
+              cases.length > 0 &&
+              `${cases[0].date} - ${cases[cases.length - 1].date}`}
           </div>
           <Chart data={visualData} axes={axes} />
           <div style={styles.footer}>

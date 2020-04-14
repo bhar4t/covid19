@@ -1,4 +1,4 @@
-var CACHE_NAME = "covid19v2";
+var CACHE_NAME = "covid19v4";
 var urlsToCache = [
   "/",
   "/states",
@@ -34,7 +34,7 @@ self.addEventListener("fetch", (event) => {
 
 // Update a service worker
 self.addEventListener("activate", (event) => {
-  var cacheWhitelist = ["covid19v2"];
+  var cacheWhitelist = ["covid19v4"];
   event.waitUntil(
     caches.keys().then((cacheNames) => {
       return Promise.all(
